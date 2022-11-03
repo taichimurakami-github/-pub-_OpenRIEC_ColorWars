@@ -31,9 +31,9 @@
 
 ### 通研公開当日の様子
 
-<img style="width: 550px" src="./_Images/playing01.jpg">
-<img style="width: 550px" src="./_Images/playing02.jpg">
-<img style="width: 550px" src="./_Images/playing03.jpg">
+<img style="width: 550px" src="./_Images/playing01.JPG">
+<img style="width: 550px" src="./_Images/playing02.JPG">
+<img style="width: 550px" src="./_Images/playing03.JPG">
 
 ### プレイ映像
 
