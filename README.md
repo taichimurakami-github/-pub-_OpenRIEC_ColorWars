@@ -47,47 +47,56 @@
 
 （閲覧できない場合、お手数ですが本リポジトリの`_Movies/gameplay-atmosphere.mp4`をご覧ください）
 
+---
+
 ## 詳細説明
 
 ### 全体構成
 
 ```mermaid
+
 classDiagram
-class Projector
+
 class PC{
   - Windows 10 21H2
-  - Unity is running
+  - Running Unity
 }
-class Cannon1{
-  cannon for player1
+class Blue_Cannon{
+  - Cannon hardware for player1
+  - Blue
+  - Joycon-Left attached
 }
-class Cannon2{
-  cannon for player2
+class Yellow_Cannon{
+  - Cannon hardware for player2
+  - Yellow
+  - Joycon-right attached
 }
   Screen <-- Projector
   Projector <-- PC
-  PC <-- Cannon1 : Joy-Con(L) data
-  PC <-- Cannon2 : Joy-Con(R) data
-
-
+  PC <-- Blue_Cannon : Joy-Con(L) data
+  PC <-- Yellow_Cannon : Joy-Con(R) data
 
 ```
 
-### ハードウェアについて
+---
 
-<div style="display:flex; gap:50px; max-width: 400px; margin-bottom: 50px;">
-  <img src="./_Images/hardware01.jpg">
-  <img src="./_Images/hardware02.jpg">
-</div>
+### ハードウェアについて
 
 砲台部分のハードウェアは、ダイソーで購入した３つのパーツ（メガホン、スタンド、回転テーブル）をテープで固定することで作成しています。
 
-メガホン内部に Joy-Con をテープで固定し、JoyconLib というライブラリを用いて Joy-Con のセンサーデータを Unity から取得します。
-
-補足説明などは次項[「ソフトウェアについて」](#ソフトウェアについて)をご覧ください。
-
 実際に稼働している様子は[こちらの動画](https://drive.google.com/file/d/127ZbuFSEB8e7z8iN8jQ2JzwtOaCqSfJm/view?usp=sharing)を参考にしてください。  
 （閲覧できない場合、お手数ですが本リポジトリの`_Movies/hardware.MOV`をご覧ください）
+
+  <img style="width: 250px" src="./_Images/hardware01.jpg">
+  <img style="width: 250px" src="./_Images/hardware02.jpg">
+
+メガホン内部に Joy-Con をテープで固定し、JoyconLib というライブラリを用いて Joy-Con のセンサーデータを Unity から取得します。
+
+#### Joycon を用いた砲台操作の仕組みについて
+
+Joycon に搭載されている加速度センサとジャイロセンサの値を用いて、Joycon 本体の姿勢推定を行なうことで、Joycon の角度とゲーム画面内の砲台の角度を一致させています。
+
+---
 
 ### ソフトウェアについて
 
@@ -104,6 +113,7 @@ class Cannon2{
 簡単なクラス設計は以下の通りです。
 
 ```mermaid
+
 classDiagram
 
 Cannon
@@ -133,14 +143,9 @@ UIMediator <-- TitleState
 UIMediator <-- PlayState
 UIMediator <-- ResultState
 
-
 ```
 
 #### 利用した外部ライブラリやアセット等
 
 - **PainZ** ... スプラトゥーン風のインクのテクスチャを簡単に生成することができる便利な有料アセット。点数計算なども API を通して提供してくれています。実装コストが大幅に削減されたため、大変助かりました。
 - **JoyconLib** ... Bluetooth で PC と接続された Joy-Con のセンサやボタン等のデータをリアルタイムで取得することができるライブラリです。Unity 上で動作するため別途サーバーを立てる必要がなく、かつ応答が高速であるため実用性が高いです。
-
-#### Joycon を用いた砲台操作の仕組みについて
-
-Joycon に搭載されている加速度センサとジャイロセンサの値を用いて、Joycon 本体の姿勢推定を行なうことで、Joycon の角度とゲーム画面内の砲台の角度を一致させています。
